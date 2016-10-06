@@ -364,7 +364,7 @@ bot.on('message', function (msg, match, reply) {
 	    	})
 	  	};
 		
-		bot.sendMessage(msg.from.id, 'Сколько белорусских рублей ты хочешь перевести в российские рубли?', opts)
+		bot.sendMessage(msg.from.id, 'Сколько российских рублей ты хочешь перевести в белорусские рубли?', opts)
 			.then(function (sended) {
 				var chatid = sended.chat.id;
 				var messageid = sended.message_id;
