@@ -79,6 +79,7 @@ bot.on('message', function (msg, match, reply) {
 
 	else if (msg.text === config.courseUSDRUB || msg.text === "/usd") {
 		var settings = { parse_mode: 'markdown'};
+		
 		request(urlJSON, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var json = JSON.parse(body);
@@ -93,6 +94,7 @@ bot.on('message', function (msg, match, reply) {
 
 	else if (msg.text === config.courseEURRUB || msg.text === "/euro") {
 		var settings = { parse_mode: 'markdown' };
+		
 		request(urlJSON, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var json = JSON.parse(body);
@@ -107,6 +109,7 @@ bot.on('message', function (msg, match, reply) {
 
 	else if (msg.text === config.courseUSDEUR || msg.text === "/usdtoeuro") {
 		var settings = { parse_mode: 'markdown' };
+		
 		request(urlJSON, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var json = JSON.parse(body);
@@ -121,6 +124,7 @@ bot.on('message', function (msg, match, reply) {
 
 	else if (msg.text === config.courseEURUSD || msg.text === "/eurotousd") {
 		var settings = { parse_mode: 'markdown' };
+		
 		request(urlJSON, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var json = JSON.parse(body);
@@ -135,6 +139,7 @@ bot.on('message', function (msg, match, reply) {
 
 	else if (msg.text === config.courseBYNRUB || msg.text === "/bynrub") {
 		var settings = { parse_mode: 'markdown' };
+		
 		request(urlJSON, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var json = JSON.parse(body);
@@ -149,6 +154,7 @@ bot.on('message', function (msg, match, reply) {
 
 	else if (msg.text === config.courseRUBBYN || msg.text === "/rubbyn") {
 		var settings = { parse_mode: 'markdown' };
+		
 		request(urlJSON, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var json = JSON.parse(body);
@@ -172,6 +178,7 @@ bot.on('message', function (msg, match, reply) {
 			.then(function (sended) {
 				var chatid = sended.chat.id;
 				var messageid = sended.message_id;
+		    	
 		    	bot.onReplyToMessage(chatid, messageid, function (message) {
 		    		if (/[0-9]/.test(message.text)) {
 				    	request(urlJSON, function (error, response, body) {
@@ -209,6 +216,7 @@ bot.on('message', function (msg, match, reply) {
 			.then(function (sended) {
 				var chatid = sended.chat.id;
 				var messageid = sended.message_id;
+		    	
 		    	bot.onReplyToMessage(chatid, messageid, function (message) {
 		    		if (/[0-9]/.test(message.text)) {
 				    	request(urlJSON, function (error, response, body) {
@@ -246,6 +254,7 @@ bot.on('message', function (msg, match, reply) {
 			.then(function (sended) {
 				var chatid = sended.chat.id;
 				var messageid = sended.message_id;
+		    	
 		    	bot.onReplyToMessage(chatid, messageid, function (message) {
 		    		if (/[0-9]/.test(message.text)) {
 				    	request(urlJSON, function (error, response, body) {
@@ -283,6 +292,7 @@ bot.on('message', function (msg, match, reply) {
 			.then(function (sended) {
 				var chatid = sended.chat.id;
 				var messageid = sended.message_id;
+		    	
 		    	bot.onReplyToMessage(chatid, messageid, function (message) {
 		    		if (/[0-9]/.test(message.text)) {
 				    	request(urlJSON, function (error, response, body) {
@@ -320,6 +330,7 @@ bot.on('message', function (msg, match, reply) {
 			.then(function (sended) {
 				var chatid = sended.chat.id;
 				var messageid = sended.message_id;
+		    	
 		    	bot.onReplyToMessage(chatid, messageid, function (message) {
 		    		if (/[0-9]/.test(message.text)) {
 				    	request(urlJSON, function (error, response, body) {
