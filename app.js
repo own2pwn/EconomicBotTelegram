@@ -5,7 +5,7 @@ var request = require('request');
 var token = 'TOKEN';
 var bot = new TelegramBot(token, {polling: true});
 var config = require('./config.json');
-var urlJSON = 'https://query.yahooapis.com/v1/public/yql?q=select+*+from+yahoo.finance.xchange+where+pair+=+%22USDRUB,EURRUB,USDEUR,EURUSD%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
+var urlJSON = 'https://query.yahooapis.com/v1/public/yql?q=select+*+from+yahoo.finance.xchange+where+pair+=+%22USDRUB,EURRUB,USDEUR,EURUSD,BYNRUB%22&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=';
 
 // course
 
@@ -15,19 +15,29 @@ bot.on('message', function (msg, match, reply) {
 			parse_mode: 'markdown',
 			reply_markup: JSON.stringify({
 				keyboard: [
-					[config.course, config.converter]
+					[config.course, config.converter],
+					[config.author]
 				]
 			})			
 		}
 
-		bot.sendMessage(msg.from.id, "*Привет, " + msg.from.username + "*! С помощью бота вы можете посмотреть курсы валют в реальном времени, а также сделать конверт из одной валюты в другую.", settings);
+		bot.sendMessage(msg.from.id, "*Привет, " + msg.from.username + "*! С помощью бота ты можешь посмотреть курсы валют в реальном времени, а также сделать конверт из одной валюты в другую.", settings);
+	}
+
+	else if (msg.text === config.author || msg.text === "/author") {
+		var settings = {
+			parse_mode: 'markdown'
+		}
+
+		bot.sendMessage(msg.from.id, "Разработчик бота — *Семин Михил*.\n\n*Контакты для связи:*\n— bifot@bifot.ru\n— @bifot\n— [ВКонтакте](https://vk.com/bifot)\n— [Личный сайт](http://bifot.ru)", settings);
 	}
 
 	else if (msg.text === config.cancel || msg.text === "/cancel") {
 		var settings = {
 			reply_markup: JSON.stringify({
 				keyboard: [
-					[config.course, config.converter]
+					[config.course, config.converter],
+					[config.author]
 				]
 			})			
 		}
@@ -42,6 +52,7 @@ bot.on('message', function (msg, match, reply) {
 				keyboard: [
 					[config.courseUSDRUB, config.courseUSDEUR],
 					[config.courseEURRUB, config.courseEURUSD],
+					[config.courseBYNRUB, config.courseRUBBYN],
 					[config.cancel]
 				]
 			})	
@@ -57,6 +68,7 @@ bot.on('message', function (msg, match, reply) {
 				keyboard: [
 					[config.convertUSDRUB, config.convertRUBUSD],
 					[config.convertUSDEUR, config.convertEURUSD],
+					[config.convertBYNRUB, config.convertRUBBYN],
 					[config.cancel]
 				]
 			})
@@ -70,7 +82,7 @@ bot.on('message', function (msg, match, reply) {
 		request(urlJSON, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var json = JSON.parse(body);
-				bot.sendMessage(msg.from.id, "*Ты выбрал курс доллара в рублях.*\n\n" + "*Покупка:* " + json.query.results.rate[0].Bid + " руб.\n*Продажа:* " + json.query.results.rate[0].Ask + " руб.", settings);
+				bot.sendMessage(msg.from.id, "*1 доллар США (USD)*\n\n" + "*Покупка:* " + json.query.results.rate[0].Bid + " руб.\n*Продажа:* " + json.query.results.rate[0].Ask + " руб.", settings);
 			}
 
 			else {
@@ -84,7 +96,7 @@ bot.on('message', function (msg, match, reply) {
 		request(urlJSON, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var json = JSON.parse(body);
-		   	bot.sendMessage(msg.from.id, "*Ты выбрал курс евро в рублях.*\n\n" + "*Покупка:* " + json.query.results.rate[1].Bid + " руб.\n*Продажа:* " + json.query.results.rate[1].Ask + " руб.", settings);
+		   	bot.sendMessage(msg.from.id, "*1 евро (EUR)*\n\n" + "*Покупка:* " + json.query.results.rate[1].Bid + " руб.\n*Продажа:* " + json.query.results.rate[1].Ask + " руб.", settings);
 		  }
 
 		 	else {
@@ -98,7 +110,7 @@ bot.on('message', function (msg, match, reply) {
 		request(urlJSON, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var json = JSON.parse(body);
-		   	bot.sendMessage(msg.from.id, "*Ты выбрал курс доллара в евро.*\n\n" + "*Покупка:* " + json.query.results.rate[2].Bid + " евро.\n*Продажа:* " + json.query.results.rate[2].Ask + " евро.", settings);
+		   	bot.sendMessage(msg.from.id, "*1 доллар США (USD)*\n\n" + "*Покупка:* " + json.query.results.rate[2].Bid + " евро.\n*Продажа:* " + json.query.results.rate[2].Ask + " евро.", settings);
 		  }
 
 			else {
@@ -112,7 +124,35 @@ bot.on('message', function (msg, match, reply) {
 		request(urlJSON, function (error, response, body) {
 			if (!error && response.statusCode == 200) {
 				var json = JSON.parse(body);
-				bot.sendMessage(msg.from.id, "*Ты выбрал курс евро в долларах.*\n\n" + "*Покупка:* " + json.query.results.rate[3].Bid + " доллара.\n*Продажа:* " + json.query.results.rate[3].Ask + " доллара.", settings);
+				bot.sendMessage(msg.from.id, "*1 евро (EUR)*\n\n" + "*Покупка:* " + json.query.results.rate[3].Bid + " доллара.\n*Продажа:* " + json.query.results.rate[3].Ask + " доллара.", settings);
+		  	}
+
+		  	else {
+		  		bot.sendMessage(msg.from.id, config.courseError + reply.text)
+		  	}
+		})
+	}
+
+	else if (msg.text === config.courseBYNRUB || msg.text === "/bynrub") {
+		var settings = { parse_mode: 'markdown' };
+		request(urlJSON, function (error, response, body) {
+			if (!error && response.statusCode == 200) {
+				var json = JSON.parse(body);
+				bot.sendMessage(msg.from.id, "*1 белорусский рубль (BYN)*\n\n" + "*Покупка:* " + json.query.results.rate[4].Bid + " руб.\n*Продажа:* " + json.query.results.rate[4].Ask + " руб.", settings);
+		  	}
+
+		  	else {
+		  		bot.sendMessage(msg.from.id, config.courseError + reply.text)
+		  	}
+		})
+	}
+
+	else if (msg.text === config.courseRUBBYN || msg.text === "/rubbyn") {
+		var settings = { parse_mode: 'markdown' };
+		request(urlJSON, function (error, response, body) {
+			if (!error && response.statusCode == 200) {
+				var json = JSON.parse(body);
+				bot.sendMessage(msg.from.id, "*1 российский рубль (RUB)*\n\n" + "*Покупка:* " + Math.round((1 / json.query.results.rate[4].Bid) * 100) / 100 + " бел. руб.\n*Продажа:* " + Math.round((1 / json.query.results.rate[4].Ask) * 100) / 100 + " бел. руб.", settings);
 		  	}
 
 		  	else {
@@ -231,6 +271,7 @@ bot.on('message', function (msg, match, reply) {
 		   }
 		);
 	}
+
 	else if (msg.text === config.convertEURUSD || msg.text === "/eurotousd") {
 		var opts = {
 	  		reply_markup: JSON.stringify({
@@ -267,6 +308,80 @@ bot.on('message', function (msg, match, reply) {
 		   }
 		);
 	}
+
+	else if (msg.text === config.convertBYNRUB || msg.text === "/byntorub") {
+		var opts = {
+	  		reply_markup: JSON.stringify({
+	      	force_reply: true
+	    	})
+	  	};
+		
+		bot.sendMessage(msg.from.id, 'Сколько белорусских рублей ты хочешь перевести в российские рубли?', opts)
+			.then(function (sended) {
+				var chatid = sended.chat.id;
+				var messageid = sended.message_id;
+		    	bot.onReplyToMessage(chatid, messageid, function (message) {
+		    		if (/[0-9]/.test(message.text)) {
+				    	request(urlJSON, function (error, response, body) {
+				    		if (!error && response.statusCode == 200) {
+								var json = JSON.parse(body);
+								var coefficient = json.query.results.rate[4].Bid;
+								var whatConvert = message.text;
+								var result = Math.round((coefficient * whatConvert) * 100) / 100;	    				
+						    				
+						    	bot.sendMessage(msg.from.id, '*' + message.text + ' бел. руб:* ' + result + ' руб.', settingsForConverter);
+					    	}
+
+					    	else {
+					    		bot.sendMessage(msg.from.id, config.courseError, settingsForConverter);
+					    	}
+				    	});
+				   }
+
+				   else {
+				   	bot.sendMessage(msg.from.id, config.errorNoNumber, settingsForConverter);
+				   }
+			   });
+		   }
+		);
+	}
+
+	else if (msg.text === config.convertRUBBYN || msg.text === "/rubtobyn") {
+		var opts = {
+	  		reply_markup: JSON.stringify({
+	      	force_reply: true
+	    	})
+	  	};
+		
+		bot.sendMessage(msg.from.id, 'Сколько белорусских рублей ты хочешь перевести в российские рубли?', opts)
+			.then(function (sended) {
+				var chatid = sended.chat.id;
+				var messageid = sended.message_id;
+		    	bot.onReplyToMessage(chatid, messageid, function (message) {
+		    		if (/[0-9]/.test(message.text)) {
+				    	request(urlJSON, function (error, response, body) {
+				    		if (!error && response.statusCode == 200) {
+								var json = JSON.parse(body);
+								var coefficient = json.query.results.rate[4].Bid;
+								var whatConvert = message.text;
+								var result = Math.round((whatConvert / coefficient) * 100) / 100;	    				
+						    				
+						    	bot.sendMessage(msg.from.id, '*' + message.text + ' руб:* ' + result + ' бел. руб.', settingsForConverter);
+					    	}
+
+					    	else {
+					    		bot.sendMessage(msg.from.id, config.courseError, settingsForConverter);
+					    	}
+				    	});
+				   }
+
+				   else {
+				   	bot.sendMessage(msg.from.id, config.errorNoNumber, settingsForConverter);
+				   }
+			   });
+		   }
+		);
+	}
 });
 
 var settingsForConverter = {
@@ -275,6 +390,7 @@ var settingsForConverter = {
 		keyboard: [
 			[config.convertUSDRUB, config.convertRUBUSD],
 			[config.convertUSDEUR, config.convertEURUSD],
+			[config.convertBYNRUB, config.convertRUBBYN],
 			[config.cancel]
 		]
 	})	
