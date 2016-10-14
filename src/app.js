@@ -52,7 +52,7 @@ bot.on('message', function (msg) {
           [config.author]
         ]
       })
-    }
+    };
 
     bot.sendMessage(msg.from.id, "*Привет, " + msg.from.username + "*! С помощью бота Вы можете посмотреть курсы валют в реальном времени, а также сделать конверт из одной валюты в другую.", settings);
   } else if (msg.text === config.course) { // /course
@@ -64,7 +64,7 @@ bot.on('message', function (msg) {
           [config.cancel]
         ]
       })
-    }
+    };
 
     bot.sendMessage(msg.from.id, "Выберите валюту:", settings);
   } else if (msg.text === config.converter) { // /convert
@@ -76,7 +76,7 @@ bot.on('message', function (msg) {
           [config.cancel]
         ]
       })
-    }
+    };
 
     bot.sendMessage(msg.from.id, "Выберите валюту:", settings);
   } else if (msg.text === config.author) { // /author
@@ -144,7 +144,7 @@ bot.on('message', function (msg) {
           if (/^\d+$/.test(message.text))
             convertSomething('usd', 'convert', message.text); // Конверт из долларов в рубли
           else
-            bot.sendMessage(msg.from.id, config.errorNoNumber);
+            bot.sendMessage(msg.from.id, config.errorNoNumber, settingsIfError);
         });
       })
   } else if (msg.text === config.convertEURRUB) {
@@ -160,7 +160,7 @@ bot.on('message', function (msg) {
           if (/^\d+$/.test(message.text))
             convertSomething('euro', 'convert', message.text); // Конверт из долларов в рубли
           else
-            bot.sendMessage(msg.from.id, config.errorNoNumber);
+            bot.sendMessage(msg.from.id, config.errorNoNumber, settingsIfError);
         });
       })
   } else if (msg.text === config.convertBYNRUB) {
@@ -176,7 +176,7 @@ bot.on('message', function (msg) {
           if (/^\d+$/.test(message.text))
             convertSomething('byn', 'convert', message.text); // Конверт из долларов в рубли
           else
-            bot.sendMessage(msg.from.id, config.errorNoNumber);
+            bot.sendMessage(msg.from.id, config.errorNoNumber, settingsIfError);
         });
       })
   } else if (msg.text === config.convertUAHRUB) {
@@ -192,9 +192,20 @@ bot.on('message', function (msg) {
           if (/^\d+$/.test(message.text))
             convertSomething('uah', 'convert', message.text); // Конверт из долларов в рубли
           else
-            bot.sendMessage(msg.from.id, config.errorNoNumber);
+            bot.sendMessage(msg.from.id, config.errorNoNumber, settingsIfError);
         });
       })
+  }
+
+  // Settings keyboard if error
+  var settingsIfError = {
+    reply_markup: JSON.stringify({
+      keyboard: [
+        [config.convertUSDRUB, config.convertEURRUB],
+        [config.convertBYNRUB, config.convertUAHRUB],
+        [config.cancel]
+      ]
+    })
   }
 
   // Converting function
