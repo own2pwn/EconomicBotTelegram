@@ -17,7 +17,7 @@ var config = require('./config');
 // Fuck the date
 
 var date = new Date();
-var today = (date.getMonth() + 1) + "." + date.getDate() + "." + date.getFullYear();
+var today = date.getDate() + "." + (date.getMonth() + 1) + "." + date.getFullYear();
 
 // Time in ms
 
