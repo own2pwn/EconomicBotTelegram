@@ -1,21 +1,17 @@
 {
 	"course": "Курсы",
 	"converter": "Конверт",
-	"courseUSDRUB": "USD/RUB",
-	"courseEURRUB": "EUR/RUB",
-	"courseUSDEUR": "USD/EUR",
-	"courseEURUSD": "EUR/USD",
-	"courseBYNRUB": "BYN/RUB",
-	"courseRUBBYN": "RUB/BYN",
+	"courseUSD": "USD",
+	"courseEUR": "EUR",
+	"courseBYN": "BYN",
+	"courseUAH": "UAH",
 	"convertUSDRUB": "USD to RUB",
-	"convertRUBUSD": "RUB to USD",
-	"convertUSDEUR": "USD to EUR",
-	"convertEURUSD": "EUR to USD",
+	"convertEURRUB": "EUR to RUB",
 	"convertBYNRUB": "BYN to RUB",
-	"convertRUBBYN": "RUB to BYN",
+	"convertUAHRUB": "UAH to RUB",
 	"courseError": "Ошибка какая-то. Попробуй еще раз, может поможет.",
 	"errorNoCommand": "Ты не ввел никакую команду. Неужели, ты не хочешь узнать, какой плохой курс? 😒",
 	"errorNoNumber": "Ты ввел буквы, а не число.",
 	"cancel": "Назад",
-	"author": "Об авторе"
+	"author": "Написать разработчику"
 }
