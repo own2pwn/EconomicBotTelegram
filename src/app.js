@@ -72,7 +72,8 @@ bot.on('message', function (msg) {
       reply_markup: JSON.stringify({
         keyboard: [
           [config.convertUSDRUB, config.convertEURRUB],
-          [config.convertBYNRUB, config.convertUAHRUB]
+          [config.convertBYNRUB, config.convertUAHRUB],
+          [config.cancel]
         ]
       })
     }
