@@ -90,7 +90,10 @@ bot.on('message', function (msg) {
     bot.sendMessage(msg.from.id, "Напишите ваше сообщение:", settings)
       .then(function (send) {
         bot.onReplyToMessage(send.chat.id, send.message_id, function(message) {
-          var settings = {
+          var settingAdmin = {
+            parse_mode: 'markdown'
+          };
+          var settingSend = {
             parse_mode: 'markdown',
             reply_markup: JSON.stringify({
               keyboard: [
@@ -101,9 +104,9 @@ bot.on('message', function (msg) {
           };
 
           // Send message to admin
-          bot.sendMessage(91990226, "*Письмо от @EconomicallysBot:*\n\n" + "От: @" + msg.chat.username + "\n\n" + message.text);
+          bot.sendMessage(91990226, "*Письмо от @EconomicallysBot:*\n\n" + "От: @" + msg.chat.username + "\n\n" + message.text, settingAdmin);
           // Sended
-          bot.sendMessage(msg.from.id, "Сообщение отправлено.", settings);
+          bot.sendMessage(msg.from.id, "Сообщение отправлено.", settingSend);
         });
     });
   } else if (msg.text === config.cancel) {
