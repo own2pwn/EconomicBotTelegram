@@ -101,9 +101,9 @@ bot.on('message', function (msg) {
           };
 
           // Send message to admin
-          bot.sendMessage(91990226, "*Письмо от @EconomicallysBot:*\n\n" + "От: @" + msg.chat.username + "\n\n" + message.text, settings);
+          bot.sendMessage(91990226, "*Письмо от @EconomicallysBot:*\n\n" + "От: @" + msg.chat.username + "\n\n" + message.text);
           // Sended
-          bot.sendMessage(msg.from.id, "Сообщение отправлено.");
+          bot.sendMessage(msg.from.id, "Сообщение отправлено.", settings);
         });
     });
   } else if (msg.text === config.cancel) {
