@@ -229,18 +229,6 @@ bot.on('message', function (msg) {
           })
         };
 
-        // Keyboard for convert
-        var settingsForResultsOfConvert = {
-          parse_mode: 'markdown',
-          reply_markup: JSON.stringify({
-            keyboard: [
-              [config.convertUSDRUB, config.convertEURRUB],
-              [config.convertBYNRUB, config.convertUAHRUB],
-              [config.cancel]
-            ]
-          })
-        };
-
         if (currency == 'usd') {
           var usd = (parseFloat(result.ValCurs.Valute[9].Value[0].replace(',', '.'))).toFixed(2); // formating course
           var summa = (usd * value).toFixed(2);
